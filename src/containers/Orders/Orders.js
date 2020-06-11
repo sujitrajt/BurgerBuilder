@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
 class Orders extends Component {
   componentDidMount() {
-    this.props.onFetchOrder();
+    this.props.onFetchOrder(this.props.token);
   }
   render() {
     let orders = <Spinner />;
@@ -26,12 +26,13 @@ class Orders extends Component {
 const connectToProps = state => {
   return {
     orders: state.order.orders,
-    loading: state.order.loading
+    loading: state.order.loading,
+    token: state.auth.token
   };
 };
 const dispatchToProps = dispatch => {
   return {
-    onFetchOrder: () => dispatch(actions.fetchOrder())
+    onFetchOrder: token => dispatch(actions.fetchOrder(token))
   };
 };
 export default connect(
